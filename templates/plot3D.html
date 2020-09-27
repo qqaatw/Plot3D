@@ -3,10 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" 
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
     <title>plot3D</title>
 </head>
 <style>
@@ -39,7 +48,8 @@
                         class: "form-control",
                         type: "number",
                         style: "width:25%",
-                        placeholder: "A"
+                        placeholder: "A",
+                        required : "true"
                     });
 
                     var expX = $("<input/>", {
@@ -47,16 +57,16 @@
                         class: "form-control",
                         type: "number",
                         style: "width:25%",
-                        placeholder: "EXP"
-
+                        placeholder: "EXP",
+                        required: "true"
                     });
                     var inputC = $("<input/>", {
                         name: "2DC-" + Counter2D.toString(),
                         class: "form-control",
                         type: "number",
                         style: "width:25%",
-                        placeholder: "B"
-
+                        placeholder: "B",
+                        required: "true"
                     });
                     var inputZ = $("<input/>", {
                         id: "range_2DZ" + Counter2D.toString(),
@@ -124,7 +134,8 @@
                         class: "form-control",
                         type: "number",
                         style: "width:35%",
-                        placeholder: "A"
+                        placeholder: "A",
+                        required: "true"
 
                     });
                     var expX = $("<input/>", {
@@ -132,7 +143,8 @@
                         class: "form-control",
                         type: "number",
                         style: "width:35%",
-                        placeholder: "EXP"
+                        placeholder: "EXP",
+                        required: "true"
 
                     });
                     var inputB = $("<input/>", {
@@ -140,7 +152,8 @@
                         class: "form-control",
                         type: "number",
                         style: "width:35%",
-                        placeholder: "B"
+                        placeholder: "B",
+                        required: "true"
 
                     });
                     var expY = $("<input/>", {
@@ -149,6 +162,7 @@
                         type: "number",
                         style: "width:35%",
                         placeholder: "EXP",
+                        required: "true"
 
                     });
                     var inputC = $("<input/>", {
@@ -156,7 +170,8 @@
                         class: "form-control",
                         type: "number",
                         style: "width:35%",
-                        placeholder: "C"
+                        placeholder: "C",
+                        required: "true"
 
                     });
                     var button = $("<button/>", {
@@ -219,7 +234,8 @@
                         class: "form-control",
                         type: "text",
                         style: "width:100%",
-                        placeholder: "Formula"
+                        placeholder: "Formula",
+                        required: "true"
                     });
                     
                     var removeButton = $("<button/>", {
@@ -256,12 +272,13 @@
                     $("#Adv3Dform").append(formRow);
                 }
             );
-            $("#calculate").click(
-                function () {
+            $("#FormulaForm").submit(
+                function (e) {
+                    e.preventDefault();
                     $.ajax(
                         {
                             url: "http://" + window.location.hostname + "/handler",
-                            data: $("#form1").serialize(),
+                            data: $("#FormulaForm").serialize(),
                             dataType: "text",
                             method: "POST",
                             success: function (result) {
@@ -298,7 +315,7 @@
         <h2>Plot3D Tool</h2>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-7">
-                <form id="form1">
+                <form id="FormulaForm">
                     <h3 style="margin-top:10px">2-D
                         <button type="button" id="2Dadd" class="btn btn-success">Add</button>
                     </h3>
@@ -312,9 +329,9 @@
                     </h3>
                     <div id="Adv3Dform"></div>
                     
-
+                    <button type="submit" id="calculate" class="btn btn-success" style="margin-top:10px">Calculate</button>
                 </form>
-                <button id="calculate" class="btn btn-success" style="margin-top:10px">Calculate</button>
+                
             </div>
             <div class="col-12 col-sm-12 col-md-5">
                 <div id="imagefile"></div>
@@ -322,8 +339,6 @@
         </div>
 
     </div>
-
-
 
 </body>
 
