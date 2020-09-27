@@ -214,7 +214,7 @@ def generate_plot(dimention3D, dimention2D, advance3D):
             Z1 = float(i["A"])*(X1 ** float(i["Xexp"])) + float(i["B"])*(Y1 ** float(i["Yexp"])) + float(i["C"])
             ax.plot_surface(X1, Y1, Z1, rstride=1, cstride=1, cmap='rainbow')
         except:
-            logging.warning('Invalid Dimension 3D, ignore it.')
+            logging.info('Invalid Dimension 3D, ignore it.')
         
     for i in dimention2D:
         try:
@@ -222,13 +222,13 @@ def generate_plot(dimention3D, dimention2D, advance3D):
             Z2 = float(i["Z"])
             ax.plot(X2, Y2, Z2)
         except:
-            logging.warning('Invalid Dimension 2D, ignore it.')
+            logging.info('Invalid Dimension 2D, ignore it.')
     for i in advance3D:
         Z1 = adv3d.parse_formula(i.lower(), X1, Y1)
         if type(Z1) is np.ndarray:
             ax.plot_surface(X1, Y1, Z1, rstride=1, cstride=1, cmap='rainbow')
         else:
-            logging.warning('Invalid Advance 3D, ignore it.')
+            logging.info('Invalid Advance 3D, ignore it.')
 
     ax.set_xlabel('X')
     ax.set_ylabel('Y')

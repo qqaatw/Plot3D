@@ -3,3 +3,5 @@ __pycache__
 miscs
 *.png
 *.svg
+
+!Demo.png
