@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>plot3D</title>
+</head>
+<style>
+    body{
+        padding: 25px;
+    }
+    .form-control{
+        display: inline;
+    }
+    
+</style>
+<script>
+    var Counter3D = 0;
+    var Counter2D = 0;
+    var CounterAdv3D = 0;
+    $(document).ready(
+        function () {
+            $("#2Dadd").click(
+                function () {
+                    Counter2D++;
+                    var tid = "2D-" + Counter2D.toString();
+                    var formRow = $("<div/>", {
+                        id: tid,
+                        class: "form-row",
+                        style: "margin-top:10px"
+                    });
+                    var label2D = "<div class=\"col-12\"><label class= \"col-form-label \" > 2D:</label><label id=\"label_2DZ\" class= \"col-form-label \" style=\"float:right\"> Z-Value:0</label></div >";
+                    var inputA = $("<input/>", {
+                        name: "2DA-" + Counter2D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:25%",
+                        placeholder: "A"
+                    });
+
+                    var expX = $("<input/>", {
+                        name: "2DXexp-" + Counter2D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:25%",
+                        placeholder: "EXP"
+
+                    });
+                    var inputC = $("<input/>", {
+                        name: "2DC-" + Counter2D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:25%",
+                        placeholder: "B"
+
+                    });
+                    var inputZ = $("<input/>", {
+                        id: "range_2DZ" + Counter2D.toString(),
+                        name: "2DZ-" + Counter2D.toString(),
+                        class: "custom-range",
+                        type: "range",
+                        min: "0",
+                        max: "100",
+                        step: "1",
+                        value: 0,
+                        oninput: "changeLabel(this.value);"
+                    });
+                    var button = $("<button/>", {
+                        class: "btn btn-success",
+                        type: "button",
+                        text: "Remove",
+                        style: "width:50%",
+                        onClick: "$(\"#" + tid + "\").remove()"
+                    });
+
+                    var temp;
+                    formRow.append(label2D);
+                    temp = $("<div/>", {
+                        class: "col-12",
+
+                    });
+                    temp.append(inputZ);
+                    formRow.append(temp);
+                    temp = $("<div/>", {
+                        class: "col-12 col-sm-6 col-md-4",
+
+                    });
+                    temp.append(inputA);
+                    temp.append("<label class=\"col-form-label \" style=\"text-align: center;width:25%\" >X</label>");
+                    temp.append(expX);
+                    temp.append("<label class=\"col-form-label \" style=\"text-align: center;width:25%\">+</label>");
+                    formRow.append(temp);
+
+                    temp = $("<div/>", {
+                        class: "col-12 col-sm-6 col-md-4",
+                    });
+                    temp.append(inputC);
+                    temp.append($("<div/>", {
+                        style: "display:inline-block;width:25%"
+                    }));
+                    temp.append(button);
+                    formRow.append(temp);
+                    $("#2Dform").append(formRow);
+
+                }
+            );
+            $("#3Dadd").click(
+                function () {
+                    Counter3D++;
+                    var tid = "3D-" + Counter3D.toString();
+                    var formRow = $("<div/>", {
+                        id: tid,
+                        class: "row",
+                        style: "margin-top:10px"
+                    });
+
+                    var label3D = "<div class=\"col-12\"><label class= \"col-form-label \" > 3D:</label ></div >";
+                    var inputA = $("<input/>", {
+                        name: "A-" + Counter3D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:35%",
+                        placeholder: "A"
+
+                    });
+                    var expX = $("<input/>", {
+                        name: "Xexp-" + Counter3D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:35%",
+                        placeholder: "EXP"
+
+                    });
+                    var inputB = $("<input/>", {
+                        name: "B-" + Counter3D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:35%",
+                        placeholder: "B"
+
+                    });
+                    var expY = $("<input/>", {
+                        name: "Yexp-" + Counter3D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:35%",
+                        placeholder: "EXP",
+
+                    });
+                    var inputC = $("<input/>", {
+                        name: "C-" + Counter3D.toString(),
+                        class: "form-control",
+                        type: "number",
+                        style: "width:35%",
+                        placeholder: "C"
+
+                    });
+                    var button = $("<button/>", {
+                        class: "btn btn-success",
+                        type: "button",
+                        text: "Remove",
+                        style: "width:50%",
+                        onClick: "$(\"#" + tid + "\").remove()"
+                    });
+
+                    var temp;
+                    formRow.append(label3D);
+
+                    temp = $("<div/>", {
+                        class: "col-12 col-sm-6 col-md-4",
+
+                    });
+                    temp.append(inputA);
+                    temp.append("<label class=\"col-form-label \" style=\"text-align: center;width:15%\" >X</label>");
+                    temp.append(expX);
+                    temp.append("<label class=\"col-form-label \" style=\"text-align: center;width:15%\">+</label>");
+                    formRow.append(temp);
+
+                    temp = $("<div/>", {
+                        class: "col-12 col-sm-6 col-md-4",
+
+                    });
+                    temp.append(inputB);
+                    temp.append("<label class=\"col-form-label\" style=\"text-align: center;width:15%\" >Y</label>");
+                    temp.append(expY);
+                    temp.append("<label class=\"col-form-label\" style=\"text-align: center;width:15%\">+</label>");
+                    formRow.append(temp);
+
+                    temp = $("<div/>", {
+                        class: "col-12 col-sm-6 col-md-4",
+                    });
+                    temp.append(inputC);
+                    temp.append($("<div/>", {
+                        style: "display:inline-block;width:15%"
+                    }));
+                    temp.append(button);
+                    formRow.append(temp);
+                    $("#3Dform").append(formRow);
+
+                }
+            );
+            $("#Adv3Dadd").click(
+                function () {
+                    CounterAdv3D++;
+                    var tid = "Adv3D-" + CounterAdv3D.toString();
+                    var formRow = $("<div/>", {
+                        id: tid,
+                        class: "row",
+                        style: "margin-top:10px"
+                    });
+
+                    var labelAdv3D = "<div class=\"col-12\"><label class= \"col-form-label \" >Advance 3D:</label ></div >";
+                    var inputF = $("<input/>", {
+                        name: "F-" + Counter3D.toString(),
+                        class: "form-control",
+                        type: "text",
+                        style: "width:100%",
+                        placeholder: "Formula"
+                    });
+                    
+                    var removeButton = $("<button/>", {
+                        class: "btn btn-success",
+                        type: "button",
+                        text: "Remove",
+                        style: "width:47.5%;margin-top:5px;",
+                        onClick: "$(\"#" + tid + "\").remove()"
+                    });
+
+                    var exampleButton = $("<button/>", {
+                        class: "btn btn-success",
+                        type: "button",
+                        text: "How to use",
+                        style: "width:47.5%;margin-top:5px;",
+                        onClick: "showExample()"
+                    });
+
+                    var temp;
+                    formRow.append(labelAdv3D);
+
+                    temp = $("<div/>", {
+                        class: "col-12",
+                    });
+                    temp.append(inputF);
+                    formRow.append(temp);
+
+                    temp.append(exampleButton);
+                    temp.append($("<div/>", {
+                        style: "display:inline-block;width:5%"
+                    }));
+                    temp.append(removeButton);
+                    formRow.append(temp);
+                    $("#Adv3Dform").append(formRow);
+                }
+            );
+            $("#calculate").click(
+                function () {
+                    $.ajax(
+                        {
+                            url: "http://" + window.location.hostname + "/handler",
+                            data: $("#form1").serialize(),
+                            dataType: "text",
+                            method: "POST",
+                            success: function (result) {
+                                $('#imagefile').html('<img src="/images/' + result + '.png" class="img-fluid"</img>');
+
+                            },
+                            error: function (a, b, c) {
+
+                            }
+                        }
+                    );
+                }
+            );
+
+        }
+    );
+    function changeLabel(val){
+        $("#label_2DZ").text("Z-Value:"+ val);
+    }
+    function showExample(){
+        var text = "Example:\n";
+        text += "3*sin(x)+ 2 + 8 * cos(y) ^ 2 + 5\n";
+        text += "Available operators:\n";
+        text += "+ - * / % ^\n"
+        text += "Available functions:\n";
+        text += "sin() cos() tan() sqrt()\n";
+        text += "**We will add more operators and functions in the future.**";
+        alert(text);
+    }
+</script>
+
+<body>
+    <div class="container-fluid">
+        <h2>Plot3D Tool</h2>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-7">
+                <form id="form1">
+                    <h3 style="margin-top:10px">2-D
+                        <button type="button" id="2Dadd" class="btn btn-success">Add</button>
+                    </h3>
+                    <div id="2Dform"></div>
+                    <h3 style="margin-top:10px">3-D
+                        <button type="button" id="3Dadd" class="btn btn-success">Add</button>
+                    </h3>
+                    <div id="3Dform"></div>
+                    <h3 style="margin-top:10px">Advance 3D
+                        <button type="button" id="Adv3Dadd" class="btn btn-success">Add</button>
+                    </h3>
+                    <div id="Adv3Dform"></div>
+                    
+
+                </form>
+                <button id="calculate" class="btn btn-success" style="margin-top:10px">Calculate</button>
+            </div>
+            <div class="col-12 col-sm-12 col-md-5">
+                <div id="imagefile"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>
