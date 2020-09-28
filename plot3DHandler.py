@@ -1,13 +1,17 @@
 import logging
 
 from plot3D.main import generate_plot
-from flask import Flask, make_response, request, send_file, send_from_directory
+from flask import Flask, make_response, redirect, request, send_file, send_from_directory
 
 app = Flask(__name__)
 logging.getLogger().setLevel('INFO')
 logging.getLogger('werkzeug').disabled = True
 
-@app.route('/plot3D/<path:path>', methods=['GET'])
+@app.route('/', methods=['GET'])
+def root():
+    return redirect('/plot3D.html')
+
+@app.route('/<path:path>', methods=['GET'])
 def plot3D(path):
     return send_from_directory('templates', path)
 
