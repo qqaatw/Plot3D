@@ -277,7 +277,7 @@
                     e.preventDefault();
                     $.ajax(
                         {
-                            url: "http://" + window.location.hostname + "/handler",
+                            url: "/handler",
                             data: $("#FormulaForm").serialize(),
                             dataType: "text",
                             method: "POST",
