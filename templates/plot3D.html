@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="A 3D plot generator.">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -16,7 +17,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <title>plot3D</title>
+    <title>Plot3D</title>
 </head>
 <style>
     body{
@@ -275,6 +276,7 @@
             $("#FormulaForm").submit(
                 function (e) {
                     e.preventDefault();
+                    $("#calculate").attr("disabled", "disabled").text("Calculating...")
                     $.ajax(
                         {
                             url: "/handler",
@@ -282,11 +284,12 @@
                             dataType: "text",
                             method: "POST",
                             success: function (result) {
-                                $('#imagefile').html('<img src="/images/' + result + '.png" class="img-fluid"</img>');
-
+                                $("#imagefile").html('<img src="/images/' + result + '.png" class="img-fluid"</img>');
+                                $("#calculate").removeAttr("disabled").text("Calculate")
                             },
                             error: function (a, b, c) {
-
+                                $("#calculate").removeAttr("disabled").text("Calculate")
+                                alert("Server Error.")
                             }
                         }
                     );
