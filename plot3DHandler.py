@@ -1,3 +1,4 @@
+import argparse
 import logging
 
 from plot3D.main import generate_plot
@@ -67,4 +68,11 @@ def handler():
 
 
 if __name__ == "__main__":
-    app.run('0.0.0.0', 80)
+    parser = argparse.ArgumentParser('plot3DHandler.py')
+    parser.add_argument("--ip", help="Specify an IP address to listen, by default '0.0.0.0'.",
+        type=str, default='0.0.0.0')
+    parser.add_argument("--port", help="Specify a port number to listen, by default 80.",
+        type=int, default=80)
+    args = parser.parse_args()
+    
+    app.run(args.ip, args.port)
