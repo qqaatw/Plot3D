@@ -65,6 +65,19 @@ class Advance3D:
         return self._formula_compute(formula_list, x, y)
 
     def _formula_check(self, formula):
+        """Check whether formula is valid.
+
+        Parameters
+        ----------
+        formula : str
+            Formula string.
+
+        Returns
+        -------
+        bool
+            Return True if formula is valid, otherwise False. 
+        """
+
         left_bracket = len(re.findall('\(', formula))
         right_bracket = len(re.findall('\)', formula))
         return left_bracket == right_bracket
@@ -110,8 +123,17 @@ class Advance3D:
             stack = self._refresh_stack(stack)
         return stack[0]
 
-    def _compute_op(self, **kwargs):
+    def _compute_op(self, operand_1, operator, operand_2=None):
         """Compute a single operand-operator pair.
+
+        Parameters
+        ----------
+        operand_1 : float or numpy.ndarray
+            First operand.
+        operator : str
+            Operator.
+        operand_2 : float or numpy.ndarray, optional
+            Second operand, by default None.
 
         Returns
         -------
@@ -119,30 +141,30 @@ class Advance3D:
             Computed result.    
         """
 
-        if 'number2' in kwargs:
-            if kwargs['operator'] == '+':
-                return kwargs['number1'] + kwargs['number2']
-            if kwargs['operator'] == '-':
-                return kwargs['number1'] - kwargs['number2']
-            if kwargs['operator'] == '*':
-                return kwargs['number1'] * kwargs['number2']
-            if kwargs['operator'] == '/':
-                return kwargs['number1'] / kwargs['number2']
-            if kwargs['operator'] == '%':
-                return kwargs['number1'] % kwargs['number2']
-            if kwargs['operator'] == '^':
-                return kwargs['number1'] ** kwargs['number2']
+        if operand_2 is None:
+            if operator == '(':
+                return operand_1
+            if operator == 'sin(':
+                return np.sin(operand_1)
+            if operator == 'cos(':
+                return np.cos(operand_1)
+            if operator == 'tan(':
+                return np.tan(operand_1)
+            if operator == 'sqrt(':
+                return np.sqrt(operand_1)
         else:
-            if kwargs['operator'] == '(':
-                return kwargs['number1']
-            if kwargs['operator'] == 'sin(':
-                return np.sin(kwargs['number1'])
-            if kwargs['operator'] == 'cos(':
-                return np.cos(kwargs['number1'])
-            if kwargs['operator'] == 'tan(':
-                return np.tan(kwargs['number1'])
-            if kwargs['operator'] == 'sqrt(':
-                return np.sqrt(kwargs['number1'])
+            if operator == '+':
+                return operand_1 + operand_2
+            if operator == '-':
+                return operand_1 - operand_2
+            if operator == '*':
+                return operand_1 * operand_2
+            if operator == '/':
+                return operand_1 / operand_2
+            if operator == '%':
+                return operand_1 % operand_2
+            if operator == '^':
+                return operand_1 ** operand_2
         
     def _refresh_stack(self, stack):
         """Refresh stack, according to the conditions.
@@ -166,7 +188,7 @@ class Advance3D:
             number2 = stack.pop()
             operator = stack.pop()
             number1 = stack.pop()
-            stack.append(self._compute_op(number1=number1, number2=number2, operator=operator))
+            stack.append(self._compute_op(operand_1=number1, operator=operator, operand_2=number2))
             stack.append(currentOP)
 
         if len(stack) > 2 and stack[-1] == ')' and type(stack[-3]) is str: # bracket condition
@@ -176,7 +198,7 @@ class Advance3D:
                 stack.pop()
                 number1 = stack.pop()
                 operator = stack.pop()
-                stack.append(self._compute_op(number1=number1, operator=operator))
+                stack.append(self._compute_op(operand_1=number1, operator=operator))
         return stack
 
 
