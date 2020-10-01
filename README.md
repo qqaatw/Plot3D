@@ -10,7 +10,7 @@
 ## Run
     python plot3DHandler.py
     
-Visit http://localhost/plot3D.html to ckeck it out.
+Visit http://localhost/plot3D.html to check it out.
 
 ## Screenshot
 ![Demo](Demo.png)
