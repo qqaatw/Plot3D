@@ -1,5 +1,5 @@
 # Plot3D - 3D Plot Generator
-
+![Python application](https://github.com/qqaatw/Plot3D/workflows/Python%20application/badge.svg)
 ## Prerequisite
  - Python 3.7.x
  - Python Packages:
