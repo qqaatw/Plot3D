@@ -231,7 +231,7 @@
 
                     var labelAdv3D = "<div class=\"col-12\"><label class= \"col-form-label \" >Advance 3D:</label ></div >";
                     var inputF = $("<input/>", {
-                        name: "F-" + Counter3D.toString(),
+                        name: "F-" + CounterAdv3D.toString(),
                         class: "form-control",
                         type: "text",
                         style: "width:100%",
@@ -303,11 +303,13 @@
     }
     function showExample(){
         var text = "Example:\n";
-        text += "3*sin(x)+ 2 + 8 * cos(y) ^ 2 + 5\n";
+        text += "-3sin(x)+2+8cos(-y)^2+ln(5)\n";
+        text += "Available constants:\n";
+        text += "pi e\n"
         text += "Available operators:\n";
         text += "+ - * / % ^\n"
         text += "Available functions:\n";
-        text += "sin() cos() tan() sqrt()\n";
+        text += "sin() cos() tan() sqrt() log2() log10() ln()\n";
         text += "**We will add more operators and functions in the future.**";
         alert(text);
     }
